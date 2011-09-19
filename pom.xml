@@ -2,13 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nl.topicus.heroku.wicket</groupId>
-	<artifactId>heroku-wicket</artifactId>
+	<artifactId>heroku-wicket-quickstart</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<!-- TODO project name -->
-	<name>quickstart</name>
-	<description></description>
-	<!-- TODO <organization> <name>company name</name> <url>company url</url> 
-		</organization> -->
+	<name>Heroku Wicket Quick Start</name>
+	<description>Quick Start application demonstrating deployment of a Wicket application to Heroku.</description>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -27,10 +24,6 @@
 			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
-		<!-- OPTIONAL DEPENDENCY <dependency> <groupId>org.apache.wicket</groupId> 
-			<artifactId>wicket-extensions</artifactId> <version>${wicket.version}</version> 
-			</dependency> -->
-
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -56,12 +49,14 @@
 			<groupId>org.eclipse.jetty.aggregate</groupId>
 			<artifactId>jetty-all-server</artifactId>
 			<version>${jetty.version}</version>
+			<!--  needs to be compile time as we bring our own embedded Jetty -->
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
+			<!--  needs to be compile time as we bring our own embedded Jetty -->
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -146,18 +141,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>Apache Nexus</id>
-			<url>https://repository.apache.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 </project>
