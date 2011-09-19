@@ -1,4 +1,4 @@
-package nl.topicus.heroku.wicket;
+
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
@@ -14,13 +14,19 @@ public class Start {
         // Set some timeout options to make debugging easier.
         connector.setMaxIdleTime(1000 * 60 * 60);
         connector.setSoLingerTime(-1);
-        connector.setPort(8080);
+
+        String webPort = System.getenv("PORT");
+    	if(webPort == null || webPort.isEmpty()) {
+        	webPort = "8080";
+    	}
+        connector.setPort(Integer.valueOf(webPort));
         server.setConnectors(new Connector[] { connector });
 
         WebAppContext bb = new WebAppContext();
         bb.setServer(server);
         bb.setContextPath("/");
         bb.setWar("src/main/webapp");
+        bb.setParentLoaderPriority(true);
 
         // START JMX SERVER
         // MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
@@ -33,12 +39,6 @@ public class Start {
         try {
             System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
-            System.in.read();
-            System.out.println(">>> STOPPING EMBEDDED JETTY SERVER");
-            // while (System.in.available() == 0) {
-            //   Thread.sleep(5000);
-            // }
-            server.stop();
             server.join();
         } catch (Exception e) {
             e.printStackTrace();
